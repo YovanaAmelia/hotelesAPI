@@ -36,6 +36,36 @@ CREATE TABLE usuarios (
   updated_at TIMESTAMP NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
+
+-- Tabla de clientes que usan la API
+CREATE TABLE Client_API (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    ruc VARCHAR(20) NOT NULL UNIQUE,
+    razon_social VARCHAR(150) NOT NULL,
+    telefono VARCHAR(20),
+    correo VARCHAR(100) UNIQUE,
+    fecha_registro DATE NOT NULL,
+    estado TINYINT DEFAULT 1 -- 1=Activo, 0=Inactivo
+);
+
+-- Tabla de tokens
+CREATE TABLE Tokens (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    id_client_api INT NOT NULL,
+    token VARCHAR(255) NOT NULL UNIQUE,
+    fecha_reg DATE NOT NULL,
+    estado TINYINT DEFAULT 1 -- 1=Activo, 0=Inactivo
+);
+
+-- Tabla de conteo de requests
+CREATE TABLE Count_request (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    id_token INT NOT NULL,
+    contador INT DEFAULT 0,
+    tipo VARCHAR(50),
+    mes VARCHAR(20)
+);
+
 -- Insertar admin
 INSERT INTO usuarios (username, password, nombre_completo, rol) VALUES
 ('admin', '$2y$10$a4qsOmIrUcXN4ptudcU57uOQ7li/aLuuuRedYHOb1YoBnoRQsWgPi', 'Administrador General', 'admin');
