@@ -46,6 +46,7 @@ CREATE TABLE Client_API (
     correo VARCHAR(100) UNIQUE,
     fecha_registro DATE NOT NULL,
     estado TINYINT DEFAULT 1 -- 1=Activo, 0=Inactivo
+    
 );
 
 -- Tabla de tokens
@@ -61,9 +62,8 @@ CREATE TABLE Tokens (
 CREATE TABLE Count_request (
     id INT AUTO_INCREMENT PRIMARY KEY,
     id_token INT NOT NULL,
-    contador INT DEFAULT 0,
-    tipo VARCHAR(50),
-    mes VARCHAR(20)
+   tipo VARCHAR(50),
+    fecha DATE
 );
 
 -- Insertar admin
