@@ -36,39 +36,40 @@ CREATE TABLE usuarios (
   updated_at TIMESTAMP NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
-
--- Tabla de clientes que usan la API
-CREATE TABLE Client_API (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    ruc VARCHAR(20) NOT NULL UNIQUE,
-    razon_social VARCHAR(150) NOT NULL,
-    telefono VARCHAR(20),
-    correo VARCHAR(100) UNIQUE,
-    fecha_registro DATE NOT NULL,
-    estado TINYINT DEFAULT 1 -- 1=Activo, 0=Inactivo
-    
-);
-
--- Tabla de tokens
-CREATE TABLE Tokens (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    id_client_api INT NOT NULL,
-    token VARCHAR(255) NOT NULL UNIQUE,
-    fecha_reg DATE NOT NULL,
-    estado TINYINT DEFAULT 1 -- 1=Activo, 0=Inactivo
-);
-
--- Tabla de conteo de requests
-CREATE TABLE Count_request (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    id_token INT NOT NULL,
-   tipo VARCHAR(50),
-    fecha DATE
-);
-
 -- Insertar admin
 INSERT INTO usuarios (username, password, nombre_completo, rol) VALUES
 ('admin', '$2y$10$a4qsOmIrUcXN4ptudcU57uOQ7li/aLuuuRedYHOb1YoBnoRQsWgPi', 'Administrador General', 'admin');
+
+-- Tabla de clientes que consumen la API
+CREATE TABLE client_api (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    ruc VARCHAR(20) NOT NULL,
+    razon_social VARCHAR(150) NOT NULL,
+    telefono VARCHAR(20),
+    correo VARCHAR(100),
+    fecha_registro DATETIME DEFAULT CURRENT_TIMESTAMP,
+    estado TINYINT DEFAULT 1
+);
+
+-- Tabla de tokens asociados a cada cliente
+CREATE TABLE tokens_api (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    id_client_api INT NOT NULL,
+    token VARCHAR(255) NOT NULL,
+    fecha_registro DATETIME DEFAULT CURRENT_TIMESTAMP,
+    estado TINYINT DEFAULT 1,
+    FOREIGN KEY (id_client_api) REFERENCES client_api(id)
+);
+
+-- Tabla para contar peticiones realizadas por token
+CREATE TABLE count_request (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    id_token INT NOT NULL,
+    tipo VARCHAR(50),
+    fecha DATE,
+    FOREIGN KEY (id_token) REFERENCES tokens_api(id)
+);
+
 
  hotelesAPI
 hotelesAPI/
@@ -100,5 +101,5 @@ hotelesAPI/
 ├── index.php
 └── .htaccess
 
-
+APIcelulares
 -- ================================

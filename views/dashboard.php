@@ -191,7 +191,12 @@ require_once __DIR__ . '/include/header.php';
             <a href="<?php echo BASE_URL; ?>views/hoteles_list.php"><i class="fas fa-list"></i> Ver Todos los Hoteles</a>
             <a href="<?php echo BASE_URL; ?>views/hotel_form.php"><i class="fas fa-plus-circle"></i> Agregar Nuevo Hotel</a>
             <a href="<?= BASE_URL ?>views/usuarios_list.php"><i class="fas fa-users-cog"></i> Gestionar Usuarios</a>
-        
+        <a href="<?php echo BASE_URL; ?>views/clientes_list.php" class="btn btn-primary">
+            <i class="fas fa-users"></i> Gestionar Clientes API
+        </a>
+        <a href="<?php echo BASE_URL; ?>views/tokens_list.php" class="btn btn-primary">
+            <i class="fas fa-key"></i> Gestionar Tokens API
+        </a>
           </div>
     </div>
 
