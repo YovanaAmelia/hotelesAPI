@@ -66,4 +66,5 @@ class ClientApi
         return $stmt->execute();
     }
 }
+
 ?>
