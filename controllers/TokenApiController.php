@@ -38,10 +38,11 @@ class TokenApiController
 
     // Crear un nuevo token
     public function crearToken($id_client_api)
-    {
-        $token = $this->tokenApiModel->generarToken();
-        return $this->tokenApiModel->guardarToken($id_client_api, $token);
-    }
+{
+    $token = $this->tokenApiModel->generarToken($id_client_api);
+    return $this->tokenApiModel->guardarToken($id_client_api, $token);
+}
+
 
     // Editar un token
     public function editarToken($id, $estado)
@@ -60,5 +61,19 @@ class TokenApiController
     {
         return $this->clientApiModel->obtenerClientes();
     }
+    public function obtenerTokenPorToken($token)
+{
+    $stmt = $this->tokenApiModel->getConexion()->prepare("
+        SELECT t.*, c.estado as cliente_estado
+        FROM tokens_api t
+        JOIN client_api c ON t.id_client_api = c.id
+        WHERE t.token = ? AND t.estado = 1 AND c.estado = 1
+    ");
+    $stmt->bind_param("s", $token);
+    $stmt->execute();
+    $resultado = $stmt->get_result();
+    return $resultado->fetch_assoc();
+}
+
 }
 ?>

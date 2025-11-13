@@ -81,9 +81,14 @@ class TokenApi
     }
 
     // Generar un token aleatorio
-    public function generarToken()
-    {
-        return bin2hex(random_bytes(32));
-    }
+   public function generarToken($id_client_api)
+{
+    $caracteresAleatorios = bin2hex(random_bytes(16)); // 32 caracteres hexadecimales
+    $fechaRegistro = date('Ymd'); // Formato: AAAAMMDD
+    $token = $caracteresAleatorios . '-' . $fechaRegistro . '-' . str_pad($id_client_api, 2, '0', STR_PAD_LEFT);
+    return $token;
+}
+
+
 }
 ?>

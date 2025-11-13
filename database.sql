@@ -24,7 +24,7 @@ INSERT INTO hotel (nombre, direccion, telefono, tipos_habitacion, metodos_pago) 
 ('Hospedaje Nina Quintana', 'Av. Progreso 789 - Huanta', '066-327890', 'Matrimonial, Doble', 'Efectivo, Transferencia'),
 ('Hotel Park suites', 'Plaza de Armas - Huanta', '066-324567', 'Suite, Matrimonial', 'Efectivo, Tarjeta'),
 ('Hotel morenos', 'Jr. Libertad 123 - Huanta', '066-321456', 'Simple, Doble, Suite', 'Efectivo, Tarjeta, Transferencia');
-
+    
 -- Tabla USUARIOS (igual que en tu estructura)
 CREATE TABLE usuarios (
   id_usuario INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
